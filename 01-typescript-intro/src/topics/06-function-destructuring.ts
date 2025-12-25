@@ -17,24 +17,24 @@ interface TaxCalculatorOption {
   products: Product[];
 }
 
-function taxCalculatior(options: TaxCalculatorOption): number[] {
+function taxCalculatior(options: TaxCalculatorOption): [number, number] {
   let total: number = 0;
-
-  options.products.forEach((product) => {
-    total += product.price;
+  const { tax, products } = options;
+  products.forEach(({ price }) => {
+    total += price;
   });
 
-  return [total, total * options.tax];
+  return [total, total * tax];
 }
 
 const shoppingCart = [phone, tablet];
 const tax: number = 0.15;
 
-const result = taxCalculatior({
+const [total, totalTax] = taxCalculatior({
   tax: tax,
-  products: shoppingCart
+  products: shoppingCart,
 });
-console.log("Total",result[0]);
-console.log("Tax",result[1]);
+console.log("Total", total);
+console.log("Tax", totalTax);
 
 export {};

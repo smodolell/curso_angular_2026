@@ -1,3 +1,4 @@
+import { Person } from './08-classes';
 // export class Persona {
 //   public name: string;
 //   public address: string;
@@ -7,19 +8,22 @@
 //     this.address = address;
 //   }
 // }
-export class Persona {
+export class Person {
   constructor(public name: string, public address: string = "No Address") {}
 }
-class Hero extends Persona{
-    constructor(
-        public alterEgo:string,
-        public age:number,
-        public realName:string
-    ){
+class Hero {
 
-        super(realName,'New York');
-    } 
+  constructor(
+    public alterEgo: string,
+    public age: number,
+    public realName: string,
+    public person:Person
+  ) {
+    this.person = person;
+  }
 }
-const ironman = new Hero("Iroman",45, "Tony");
+
+const tony= new Person("tony","New York");
+const ironman = new Hero("Iroman", 45, "Tony",tony);
 
 console.log(ironman);

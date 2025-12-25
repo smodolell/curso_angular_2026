@@ -22,9 +22,13 @@ const audioPlayer: AudioPlayer = {
 const song = "NewSong";
 
 const { song: anotherSond, songDuration: Duration, details } = audioPlayer;
-const {author} = details;
+const { author } = details;
 
-console.log("Song:", anotherSond);
-console.log("Duration:", Duration);
-console.log("Autor:", author);
+// console.log("Song:", anotherSond);
+// console.log("Duration:", Duration);
+// console.log("Autor:", author);
+const dbz: string[] = ["Goku", "Vegeta", "Trunks"];
+const [, , trunks="Not found"]: string[] = dbz;
+console.log("Personaje 3;", trunks);
+
 export {};

@@ -1,24 +1,24 @@
 <h1>Dragon Ball Page</h1>
-<hr/>
+<hr />
 
 <section class="row">
   <div class="col-12 col-sm-6">
     <h3>Agregar:</h3>
     <input type="text" class="form-control" placeholder="Nombre" />
-     <input type="number" class="form-control mt-2" placeholder="Poder" />
+    <input type="number" class="form-control mt-2" placeholder="Poder" />
 
-     <button class="mt-2 btn btn-prinary">Agregar</button>
+    <button class="mt-2 btn btn-prinary">Agregar</button>
   </div>
   <div class="col-12 col-sm-6">
     <h3>Listadp</h3>
-    <ol>
-      <li>GOKu</li>
-      <li>GOKu</li>
-      <li>GOKu</li>
-      <li>GOKu</li>
-      <li>GOKu</li>
-      <li>GOKu</li>
-    </ol>
+    <ul>
+      @for (item of characters(); track $index) {
+      <li>
+        <span>{{ item.name }}</span>
+        <strong class="text-danger"> {{ item.power }}</strong>
+      </li>
 
+      }
+    </ul>
   </div>
 </section>

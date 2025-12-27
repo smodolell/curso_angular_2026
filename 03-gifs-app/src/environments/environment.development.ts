@@ -3,4 +3,5 @@ export const environment = {
   companyName: 'Gifs',
   companyName2: 'App',
   companySlogan: 'Tu app de gifs favorita',
+  gifpyApiKey:"NxeGhMzzexI8XdZcjn7Dz8vp8gBI7JFf"
 };

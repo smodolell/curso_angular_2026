@@ -7,5 +7,6 @@ import { Character } from '../../../interfaces/character';
   templateUrl: './craracter-list.html',
 })
 export class CraracterList {
+  listName = input.required<string>();
   characters = input.required<Character[]>();
 }

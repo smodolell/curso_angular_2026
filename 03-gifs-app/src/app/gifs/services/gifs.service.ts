@@ -11,7 +11,7 @@ import { GifMapper } from '../mapper/gif.mapper';
 export class GifsService {
   private http = inject(HttpClient);
   trendingGifs = signal<Gif[]>([]);
-trendingGifsLoading = signal<boolean>(true)
+  trendingGifsLoading = signal<boolean>(true);
 
   constructor() {
     this.loadTrendingGifs();
@@ -32,5 +32,18 @@ trendingGifsLoading = signal<boolean>(true)
         this.trendingGifsLoading.set(false);
         console.log(gifs);
       });
+  }
+
+  searchGifs(query: string) {
+    this.http.get<GiphyResponse>(`${environment.gifpyApiUrl}/gifs/search`, {
+      params: {
+        api_key: environment.gifpyApiKey,
+        limit: '20',
+        q: query,
+      }
+    }).subscribe((resp) => {
+      const gifs = GifMapper.mapGiphyItemsToGifs(resp.data);
+      console.log({search: gifs});
+    });
   }
 }

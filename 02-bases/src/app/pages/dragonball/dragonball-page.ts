@@ -1,5 +1,5 @@
-import { NgClass } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component,  signal } from '@angular/core';
+import { Character } from '../../interfaces/character';
 
 @Component({
   imports: [],
@@ -59,10 +59,4 @@ export class DragonballPage {
     this.name.set('');
     this.power.set(100);
   }
-}
-
-export interface Character {
-  id: number;
-  name: string;
-  power: number;
 }

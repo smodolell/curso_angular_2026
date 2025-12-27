@@ -1,8 +1,9 @@
 import {  Component, signal } from '@angular/core';
-import { Character } from '../dragonball/dragonball-page';
+import { CraracterList } from "../../components/dragonball/craracter-list/craracter-list";
+import { Character } from '../../interfaces/character';
 
 @Component({
-  imports: [],
+  imports: [CraracterList],
   templateUrl:"./dragonball-super-page.html"
 })
 export class DragonballSuperPage {

@@ -22,6 +22,7 @@ export class GifsService {
   trendingGifsLoading = signal<boolean>(true);
   searchHistory = signal<Record<string, Gif[]>>(loadFromLocalStorage());
   searchHistoryKeys = computed(() => Object.keys(this.searchHistory()));
+
   saveGiftToLocalStorage = effect(() => {
     localStorage.setItem(GIF_STORAGE_KEY, JSON.stringify(this.searchHistory()));
   });
@@ -52,7 +53,7 @@ export class GifsService {
         const gifs = GifMapper.mapGiphyItemsToGifs(response.data);
         this.trendingGifs.set(gifs);
         this.trendingGifsLoading.set(false);
-        console.log(gifs);
+        // console.log(gifs);
       });
   }
 

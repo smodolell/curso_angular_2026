@@ -20,8 +20,7 @@ export default class TrendingPage {
     const IsAtButton = scrollTop + clientHeight +300 >= scrollHeight;
 
     if(IsAtButton){
-
-
+      this.gifService.loadTrendingGifs();
     }
     console.log('IsAtButton', IsAtButton);
 

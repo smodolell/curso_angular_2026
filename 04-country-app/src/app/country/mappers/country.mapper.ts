@@ -7,9 +7,9 @@ export class CountryMapper {
       cca2: apiResponse.cca2,
       flag: apiResponse.flag,
       flagSvg: apiResponse.flags.svg,
-      name: apiResponse.name.common,
+      name: apiResponse.translations["spa"].common?? 'Nombre no disponible',
       capital: apiResponse.capital.join(', '),
-      population: apiResponse.population.toLocaleString(),
+      population: apiResponse.population,
     };
   }
 

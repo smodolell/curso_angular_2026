@@ -13,9 +13,10 @@
     @for (country of countries(); track $index;let index = $index) {
     <tr>
       <td>{{ index + 1 }}</td>
+      <td>{{ country.flag }}</td>
       <td>
         <img
-          src="{{ country.flag }}"
+          src="{{ country.flagSvg }}"
           alt="{{ country.name }}"
           class="w-8 h-6 object-cover rounded"
         />

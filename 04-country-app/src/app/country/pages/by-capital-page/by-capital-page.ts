@@ -16,21 +16,40 @@ export class ByCapitalPage {
   isError = signal<string | null>(null);
 
   countries = signal<Country[]>([]);
+  // onSearch(query?: string): void {
+  //   if (this.isLoading()) return;
+  //   this.isLoading.set(true);
+  //   this.isError.set(null);
+  //   this.countries.set([]);
+
+  //   console.log({ term: query });
+  //   this.countryService.searchByCapital(query || '')
+  //   .subscribe((countries) => {
+  //     this.isLoading.set(false);
+  //     if (countries.length === 0) {
+  //       this.isError.set(`No countries found with capital "${query}"`);
+  //       return;
+  //     }
+  //     this.countries.set(countries);
+  //     console.log(countries);
+  //   });
+
   onSearch(query?: string): void {
     if (this.isLoading()) return;
     this.isLoading.set(true);
     this.isError.set(null);
     this.countries.set([]);
 
-    console.log({ term: query });
-    this.countryService.searchByCapital(query || '').subscribe((countries) => {
-      this.isLoading.set(false);
-      if (countries.length === 0) {
-        this.isError.set(`No countries found with capital "${query}"`);
-        return;
-      }
-      this.countries.set(countries);
-      console.log(countries);
+    this.countryService.searchByCapital(query || '').subscribe({
+      next: (countries) => {
+        this.isLoading.set(false);
+        this.countries.set(countries);
+      },
+      error: (error) => {
+        this.isLoading.set(false);
+        this.isError.set(error);
+        this.countries.set([]);
+      },
     });
   }
 }

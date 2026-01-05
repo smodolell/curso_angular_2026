@@ -2,7 +2,10 @@ import { Component, inject, resource, signal } from '@angular/core';
 import { CountrySearchInput } from '../../components/country-search-input/country-search-input';
 import { CountryList } from '../../components/country-list/country-list';
 import { CountryService } from '../../services/country.service';
-import { firstValueFrom } from 'rxjs';
+// import { firstValueFrom, of } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { Country } from '../../interfaces/country.interface';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-by-country-page',
@@ -13,12 +16,20 @@ export class ByCountryPage {
   countryService = inject(CountryService);
   query = signal<string>('');
 
-  countryResource = resource({
+  countryResource = rxResource<Country[], { query: string }>({
     params: () => ({ query: this.query() }),
-    loader: async ({ params }) => {
-      if (!params.query) return [];
-
-      return await firstValueFrom(this.countryService.searchByCountry(params.query));
+    stream: ({ params }) => {
+      if (!params.query) return of([]);
+      return this.countryService.searchByCountry(params.query);
     },
   });
+
+  // countryResource = resource({
+  //   params: () => ({ query: this.query() }),
+  //   loader: async ({ params }) => {
+  //     if (!params.query) return [];
+
+  //     return await firstValueFrom(this.countryService.searchByCountry(params.query));
+  //   },
+  // });
 }

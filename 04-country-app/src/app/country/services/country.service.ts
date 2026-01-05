@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/rest-countries.interface';
 import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { CountryMapper } from '../mappers/country.mapper';
-import { Country } from '../interfaces/country.interface';
+import { Country, Region } from '../interfaces/country.interface';
 
 const API_URL = 'https://restcountries.com/v3.1';
 
@@ -14,6 +14,7 @@ export class CountryService {
   private http = inject(HttpClient);
   private queryCacheCapital = new Map<string, Country[]>();
   private queryCacheCountry = new Map<string, Country[]>();
+  private queryCacheRegion = new Map<Region, Country[]>();
 
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
@@ -48,6 +49,23 @@ export class CountryService {
         console.log('Error fetching', error);
 
         return throwError(() => new Error(`NO se pudo obtener paises con el ${query}`));
+      })
+    );
+  }
+
+  searchByRegion(region: Region): Observable<Country[]> {
+
+    if (this.queryCacheRegion.has(region)) {
+      return of(this.queryCacheRegion.get(region) ?? []);
+    }
+
+    return this.http.get<RESTCountry[]>(`${API_URL}/region/${region}`).pipe(
+      map((items) => CountryMapper.toCountries(items)),
+      tap((countries) => this.queryCacheRegion.set(region, countries)),
+      catchError((error) => {
+        console.log('Error fetching', error);
+
+        return throwError(() => new Error(`NO se pudo obtener paises con el ${region}`));
       })
     );
   }

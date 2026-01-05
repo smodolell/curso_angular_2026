@@ -8,7 +8,7 @@ export class CountryMapper {
       flag: apiResponse.flag,
       flagSvg: apiResponse.flags.svg,
       name: apiResponse.translations["spa"].common?? 'Nombre no disponible',
-      capital: apiResponse.capital.join(', '),
+      capital: apiResponse.capital?.join(', '),
       population: apiResponse.population,
       region:apiResponse.region,
       subRegion:apiResponse.subregion

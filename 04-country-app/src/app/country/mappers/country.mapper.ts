@@ -10,6 +10,9 @@ export class CountryMapper {
       name: apiResponse.translations["spa"].common?? 'Nombre no disponible',
       capital: apiResponse.capital.join(', '),
       population: apiResponse.population,
+      region:apiResponse.region,
+      subRegion:apiResponse.subregion
+
     };
   }
 

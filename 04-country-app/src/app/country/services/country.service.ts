@@ -13,17 +13,26 @@ const API_URL = 'https://restcountries.com/v3.1';
 export class CountryService {
   private http = inject(HttpClient);
 
-  searchByCapital(query: string):Observable<Country[]> {
+  searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
-    return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`)
-    .pipe(
-       map((items) => CountryMapper.toCountries(items)),
-       catchError((error)=>{
-          console.log("Error fetching",error);
+    return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`).pipe(
+      map((items) => CountryMapper.toCountries(items)),
+      catchError((error) => {
+        console.log('Error fetching', error);
 
+        return throwError(() => new Error(`NO se pudo obtener paises con el ${query}`));
+      })
+    );
+  }
+    searchByCountry(query: string): Observable<Country[]> {
+    query = query.toLowerCase();
+    return this.http.get<RESTCountry[]>(`${API_URL}/name/${query}`).pipe(
+      map((items) => CountryMapper.toCountries(items)),
+      catchError((error) => {
+        console.log('Error fetching', error);
 
-          return throwError(()=> new Error(`NO se pudo obtener paises con el ${query}`))
-       })
+        return throwError(() => new Error(`NO se pudo obtener paises con el ${query}`));
+      })
     );
   }
 }

@@ -4,19 +4,22 @@ import { routes } from './app.routes';
 import { registerInjectable } from '@angular/core/primitives/di';
 import { registerLocaleData } from '@angular/common';
 
-import localEs from '@angular/common/locales/es-MX'
-import localFr from '@angular/common/locales/fr'
+import localEs from '@angular/common/locales/es-MX';
+import localFr from '@angular/common/locales/fr';
+import { LocalService } from './services/LocalService';
 
-registerLocaleData(localEs,'es');
-registerLocaleData(localFr,'fr');
+registerLocaleData(localEs, 'es');
+registerLocaleData(localFr, 'fr');
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     {
-      provide:LOCALE_ID,
-      useValue:'es'
-    }
-  ]
+      provide: LOCALE_ID,
+      //useValue: 'es',
+      deps: [LocalService],
+      useFactory: (localeService: LocalService) => localeService.GetLocale,
+    },
+  ],
 };

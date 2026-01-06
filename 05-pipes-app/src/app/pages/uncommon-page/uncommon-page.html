@@ -13,11 +13,32 @@
   </app-card>
 
   <app-card title="i18nPuralPipe">
-    <p>
-      Actualmente hay {{ this.clients().length | i18nPlural : clientsMap() }}
-    </p>
+    <p>Actualmente hay {{ this.clients().length | i18nPlural : clientsMap() }}</p>
     <button [disabled]="clients().length === 0" (click)="deleteClient()" class="btn btn-primary">
       Borrar Cliente
     </button>
+  </app-card>
+
+  <app-card title="SlidePipe">
+    <b>Original</b>
+    <p class="text-primary">
+      {{ clients().join(', ') }}
+    </p>
+    <b class="mt-2">Slide:0:2</b>
+    <p class="text-primary">
+      {{ clients() | slice : 0 : 2 }}
+    </p>
+    <b class="mt-2">Slide:1:2</b>
+    <p class="text-primary">
+      {{ clients() | slice : 1 : 2 }}
+    </p>
+    <b class="mt-2">Slide:2:4</b>
+    <p class="text-primary">
+      {{ clients() | slice : 2 : 4 }}
+    </p>
+    <b class="mt-2">Slide:0:-3</b>
+    <p class="text-primary">
+      {{ clients() | slice : 0 : -3 }}
+    </p>
   </app-card>
 </div>

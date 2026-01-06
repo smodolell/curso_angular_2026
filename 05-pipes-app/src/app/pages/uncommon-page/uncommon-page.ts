@@ -1,6 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { Card } from '../../components/card/card';
-import { I18nPluralPipe, I18nSelectPipe, SlicePipe ,JsonPipe} from '@angular/common';
+import {
+  I18nPluralPipe,
+  I18nSelectPipe,
+  SlicePipe,
+  JsonPipe,
+  KeyValuePipe,
+  UpperCasePipe,
+  TitleCasePipe,
+} from '@angular/common';
 const client1 = {
   name: 'Sergio',
   gender: 'male',
@@ -15,7 +23,16 @@ const client2 = {
 };
 @Component({
   selector: 'app-uncommon-page',
-  imports: [Card, I18nSelectPipe,I18nPluralPipe,SlicePipe,JsonPipe],
+  imports: [
+    Card,
+    I18nSelectPipe,
+    I18nPluralPipe,
+    SlicePipe,
+    JsonPipe,
+    KeyValuePipe,
+    UpperCasePipe,
+    TitleCasePipe,
+  ],
   templateUrl: './uncommon-page.html',
 })
 export default class UncommonPage {
@@ -35,7 +52,18 @@ export default class UncommonPage {
 
   //Plural
 
-  clients = signal(['Maria', 'Pedro', 'Fernando','Sergio','Pedro','Carolina','Federico','Olivia','Romina','Sofia']);
+  clients = signal([
+    'Maria',
+    'Pedro',
+    'Fernando',
+    'Sergio',
+    'Pedro',
+    'Carolina',
+    'Federico',
+    'Olivia',
+    'Romina',
+    'Sofia',
+  ]);
   clientsMap = signal({
     '=0': 'no tenemos clientes esperando',
     '=1': 'tenemos un cliente esperando',
@@ -46,5 +74,9 @@ export default class UncommonPage {
     this.clients.update((prev) => prev.slice(1));
   }
 
-
+  profile = {
+    name: 'Sergio',
+    age: 41,
+    address: '9 de julio 4545',
+  };
 }

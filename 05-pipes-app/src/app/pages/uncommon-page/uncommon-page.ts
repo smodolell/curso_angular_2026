@@ -8,6 +8,7 @@ import {
   KeyValuePipe,
   UpperCasePipe,
   TitleCasePipe,
+  AsyncPipe,
 } from '@angular/common';
 const client1 = {
   name: 'Sergio',
@@ -32,6 +33,7 @@ const client2 = {
     KeyValuePipe,
     UpperCasePipe,
     TitleCasePipe,
+    AsyncPipe
   ],
   templateUrl: './uncommon-page.html',
 })
@@ -79,4 +81,11 @@ export default class UncommonPage {
     age: 41,
     address: '9 de julio 4545',
   };
+
+  promiserValue:Promise<string>= new Promise((resolve,reject)=>{
+    setTimeout(() => {
+      resolve("Tenemos data en la promesa");
+      console.log("promesa finalizada");
+    }, 3500);
+  })
 }

@@ -8,6 +8,7 @@ import { TitleCasePipe } from '@angular/common';
 import { HeroCreatorPipe } from '../../pipes/hero-creator.pipe';
 import { HeroSortByPipe } from '../../pipes/hero-sort-by.pipe';
 import { Hero } from '../../interfaces/hero.interface';
+import { HeroFilterPipe } from '../../pipes/hero-filter.pipe';
 
 @Component({
   selector: 'app-custom-page',
@@ -19,6 +20,7 @@ import { Hero } from '../../interfaces/hero.interface';
     TitleCasePipe,
     HeroCreatorPipe,
     HeroSortByPipe,
+    HeroFilterPipe
   ],
   templateUrl: './custom-page.html',
 })
@@ -29,6 +31,7 @@ export default class CustomPage {
   heroes = signal(heroes);
 
   sortBy = signal<keyof Hero | null>(null);
+  search = signal('');
 
   changeUpperCase() {
     if (this.upperCase()) {
@@ -38,3 +41,4 @@ export default class CustomPage {
     }
   }
 }
+

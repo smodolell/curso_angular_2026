@@ -7,7 +7,11 @@
     <label class="col-sm-3 col-form-label">Nombre</label>
     <div class="col-sm-9">
       <input class="form-control" placeholder="Nombre de la persona" formControlName="name" />
-      <span class="form-text text-danger"> error message </span>
+      @if ( formUtils.isValidField(myForm, 'name')) {
+      <span class="form-text text-danger">
+        {{ formUtils.getFieldError(myForm, 'name') }}
+      </span>
+      }
     </div>
   </div>
 
@@ -35,7 +39,11 @@
 
           <button class="btn btn-outline-danger" type="button">Eliminar</button>
         </div>
-        <span class="form-text text-danger"> Este campo es requerido </span>
+        @if ( formUtils.isValidFieldInArray(favoriteGames, i)) {
+        <span class="form-text text-danger">
+          {{ formUtils.getFieldErrorInArray(favoriteGames, i) }}
+        </span>
+        }
       </div>
       }
     </div>
@@ -60,5 +68,5 @@
 <br />
 
 <span>Agregar Juego</span>
-<pre>{{ myForm.controls["favoriteGames"].errors | json }}</pre>
-<pre>{{ myForm.controls["favoriteGames"].value | json }}</pre>
+<pre>{{ myForm.controls['favoriteGames'].errors | json }}</pre>
+<pre>{{ myForm.controls['favoriteGames'].value | json }}</pre>

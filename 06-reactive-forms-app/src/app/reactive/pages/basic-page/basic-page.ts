@@ -1,16 +1,22 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-page',
-  imports: [JsonPipe,ReactiveFormsModule],
+  imports: [JsonPipe, ReactiveFormsModule],
   templateUrl: './basic-page.html',
 })
 export class BasicPage {
-  myForm = new FormGroup({
-    name: new FormControl(''),
-    price: new FormControl(0),
-    isStorage: new FormControl(0),
+  private fb = inject(FormBuilder);
+  myForm = this.fb.group({
+    name: [],
+    price: [],
+    inStorage: [],
   });
+  // myForm = new FormGroup({
+  //   name: new FormControl(''),
+  //   price: new FormControl(0),
+  //   isStorage: new FormControl(0),
+  // });
 }

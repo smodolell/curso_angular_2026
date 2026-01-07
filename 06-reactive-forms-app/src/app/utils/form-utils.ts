@@ -1,4 +1,4 @@
-import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, ValidationErrors } from '@angular/forms';
 
 export class FormUtils {
   static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
@@ -19,11 +19,11 @@ export class FormUtils {
           return `Valor mínimo de ${errors['min'].min}`;
         case 'email':
           return `Correo Electonico no valido`;
-          case 'pattern':
-            if(errors['pattern'].requiredPattern === FormUtils.emailPattern){
-              return "El correo electronico no es permitido";
-            }
-            return "Error de patrón contra expresion regular"
+        case 'pattern':
+          if (errors['pattern'].requiredPattern === FormUtils.emailPattern) {
+            return 'El correo electronico no es permitido';
+          }
+          return 'Error de patrón contra expresion regular';
         default:
           return 'Error de Validacion no controlado';
       }
@@ -49,5 +49,17 @@ export class FormUtils {
     const errors = formArray.controls[index].errors ?? {};
 
     return FormUtils.getTextError(errors);
+  }
+
+ static isFieldOneEqualFieldTwo(fieldUOne: string, fieldTwo: string) {
+    return (formGroup: AbstractControl) => {
+      const fieldOneValue = formGroup.get(fieldUOne)?.value;
+      const fieldTwoValue = formGroup.get(fieldTwo)?.value;
+      return fieldOneValue === fieldTwoValue
+        ? null
+        : {
+            passwordsNotEqual: true,
+          };
+    };
   }
 }

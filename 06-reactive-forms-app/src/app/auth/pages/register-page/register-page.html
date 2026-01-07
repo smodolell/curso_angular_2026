@@ -18,10 +18,9 @@
           @if(formUtils.isValidField(myForm,'name')){
           <span class="form-text text-danger">
             <!-- {{ formUtils.getFieldError(myForm, 'name') }} -->
-              Debe de ser en formato de nombre y apellido
+            Debe de ser en formato de nombre y apellido
           </span>
           }
-
         </div>
       </div>
 
@@ -37,9 +36,7 @@
           />
           @if(formUtils.isValidField(myForm,'email')){
           <span class="form-text text-danger">
-             {{ formUtils.getFieldError(myForm, 'email') }}
-
-
+            {{ formUtils.getFieldError(myForm, 'email') }}
           </span>
           }
         </div>
@@ -106,6 +103,12 @@
 
       <div class="row">
         <div class="col">
+          @if(myForm.errors && myForm.touched){
+          <span class="text-danger">
+            Las contraseña no son iguales
+          </span>
+          }
+
           <button class="btn btn-primary float-end" type="submit">Crear</button>
         </div>
       </div>
@@ -119,6 +122,7 @@
 <h5>Form Values</h5>
 <pre>{{ myForm.value | json }}</pre>
 <h2>Form errors</h2>
+<pre>{{ myForm.errors | json }}</pre>
 <h5>Nombre</h5>
 <pre>{{ myForm.controls['name'].errors | json }}</pre>
 

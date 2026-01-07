@@ -1,5 +1,13 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors } from '@angular/forms';
 
+async function sleep() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2500);
+  });
+}
+
 export class FormUtils {
   static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
   static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
@@ -24,6 +32,10 @@ export class FormUtils {
             return 'El correo electronico no es permitido';
           }
           return 'Error de patrón contra expresion regular';
+
+        case 'emailTaken':
+          return `El correo electrónico ya está siendo usado por otro usuario`;
+
         default:
           return 'Error de Validacion no controlado';
       }
@@ -51,7 +63,7 @@ export class FormUtils {
     return FormUtils.getTextError(errors);
   }
 
- static isFieldOneEqualFieldTwo(fieldUOne: string, fieldTwo: string) {
+  static isFieldOneEqualFieldTwo(fieldUOne: string, fieldTwo: string) {
     return (formGroup: AbstractControl) => {
       const fieldOneValue = formGroup.get(fieldUOne)?.value;
       const fieldTwoValue = formGroup.get(fieldTwo)?.value;
@@ -61,5 +73,18 @@ export class FormUtils {
             passwordsNotEqual: true,
           };
     };
+  }
+
+  static async checkingServerResponce(control: AbstractControl): Promise<ValidationErrors | null> {
+    console.log('checkingServerResponce');
+    await sleep();
+    const formValue = control.value;
+
+    if (formValue === 'hola@mundo.com') {
+      return {
+        emailTaken: true,
+      };
+    }
+    return null;
   }
 }

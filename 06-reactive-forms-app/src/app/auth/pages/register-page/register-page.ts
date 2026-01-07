@@ -22,7 +22,11 @@ export class RegisterPage {
   myForm: FormGroup = this.fb.group(
     {
       name: [null, [Validators.required, Validators.pattern(this.formUtils.namePattern)]],
-      email: [null, [Validators.required, Validators.pattern(this.formUtils.emailPattern)]],
+      email: [
+        null,
+        [Validators.required, Validators.pattern(this.formUtils.emailPattern)],
+        [FormUtils.checkingServerResponce],
+      ],
       username: [
         '',
         [
@@ -38,8 +42,6 @@ export class RegisterPage {
       Validators: [FormUtils.isFieldOneEqualFieldTwo('password', 'confirmPassword')],
     }
   );
-
-
 
   onSubmit() {
     this.myForm.markAllAsTouched();

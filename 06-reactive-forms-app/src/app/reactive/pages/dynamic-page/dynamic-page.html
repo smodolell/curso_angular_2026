@@ -1,7 +1,7 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr />
 
-<form [formGroup]="myForm" autocomplete="off">
+<form [formGroup]="myForm"  (ngSubmit)="onSubmit()" autocomplete="off">
   <!-- Nombre -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Nombre</label>
@@ -20,9 +20,17 @@
     <label class="col-sm-3 col-form-label">Agregar</label>
     <div class="col-sm-9">
       <div class="input-group">
-        <input class="form-control" placeholder="Agregar favorito" />
+        <input
+          class="form-control"
+          placeholder="Agregar favorito"
+          [formControl]="newFavorite"
+          (keydown.enter)="onAddToFavorites()"
+          (keydown.enter)="$event.preventDefault()"
+        />
 
-        <button class="btn btn-outline-primary" type="button">Agregar favorito</button>
+        <button class="btn btn-outline-primary" type="button" (click)="onAddToFavorites()">
+          Agregar favorito
+        </button>
       </div>
     </div>
   </div>
@@ -37,7 +45,9 @@
         <div class="input-group">
           <input class="form-control" [formControlName]="i" />
 
-          <button class="btn btn-outline-danger" type="button">Eliminar</button>
+          <button class="btn btn-outline-danger" type="button" (click)="onDeleteFavorite(i)">
+            Eliminar
+          </button>
         </div>
         @if ( formUtils.isValidFieldInArray(favoriteGames, i)) {
         <span class="form-text text-danger">
@@ -45,6 +55,10 @@
         </span>
         }
       </div>
+      }
+      <!--  -->
+      @if ( formUtils.isValidField(myForm, 'favoriteGames')) {
+      <span class="form-text text-danger"> Debe de tener al menos 2 juegos. </span>
       }
     </div>
   </div>

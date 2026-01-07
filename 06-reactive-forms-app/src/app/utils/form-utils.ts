@@ -1,6 +1,10 @@
 import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
 
 export class FormUtils {
+  static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
+
   static isValidField(myForm: FormGroup, fieldName: string): boolean | null {
     return myForm.controls[fieldName].errors && myForm.controls[fieldName].touched;
   }
@@ -9,14 +13,19 @@ export class FormUtils {
       switch (key) {
         case 'required':
           return 'Este campo es requerido';
-
         case 'minlength':
           return `Mínimo de ${errors['minlength'].requiredLength} caracteres.`;
-
         case 'min':
           return `Valor mínimo de ${errors['min'].min}`;
-           case 'email':
+        case 'email':
           return `Correo Electonico no valido`;
+          case 'pattern':
+            if(errors['pattern'].requiredPattern === FormUtils.emailPattern){
+              return "El correo electronico no es permitido";
+            }
+            return "Error de patrón contra expresion regular"
+        default:
+          return 'Error de Validacion no controlado';
       }
     }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender , Component, effect, OnChanges, OnInit } from '@angular/core';
 
 const log = (...messages: string[]) => {
   console.log(`${messages[0]} %c${messages.slice(1).join(', ')} `, 'color: #bada55');
@@ -9,10 +9,19 @@ const log = (...messages: string[]) => {
   imports: [],
   templateUrl: './home-page.html',
 })
-export class HomePage {
+export class HomePage implements OnInit, OnChanges {
   constructor() {
     console.log('Constructur llamado');
   }
+
+
+  basicEffect = effect((onCleanup) => {
+    log('effect', 'Disparar efectos secundarios');
+
+    onCleanup(() => {
+      log('onCleanup', 'Se ejecuta cuando el efecto se va a destruir');
+    });
+  });
 
   ngOnInit() {
     log(
@@ -26,7 +35,7 @@ export class HomePage {
   }
 
   ngDoCheck() {
-    log('ngDoCheck', 'Se ejecuta cada vez que se comprueba si hay cambios en este componente.F');
+    log('ngDoCheck', 'Se ejecuta cada vez que se comprueba si hay cambios en este componente.');
   }
 
   ngAfterContentInit() {
@@ -56,4 +65,20 @@ export class HomePage {
       'Se ejecuta cada vez que se verifica si hay cambios en la vista del componente.'
     );
   }
+
+  ngOnDestroy() {
+    log('ngOnDestroy', 'Se ejecuta una vez antes de que se destruya el componente.');
+  }
+
+  afterNextRenderEffect = afterNextRender(() => {
+    log(
+      'afterNextRender',
+      'Se ejecuta una vez la próxima vez que todos los componentes se hayan representado en el DOM.'
+    );
+  });
+
+  //no funciona en 21
+  // afterRender = afterRender(() => {
+  //   log('afterRender', 'Runs every time all components have been rendered to the DOM.');
+  // });
 }

@@ -1,4 +1,4 @@
-import { afterNextRender , Component, effect, OnChanges, OnInit } from '@angular/core';
+import { afterNextRender, Component, effect, OnChanges, OnInit, signal } from '@angular/core';
 
 const log = (...messages: string[]) => {
   console.log(`${messages[0]} %c${messages.slice(1).join(', ')} `, 'color: #bada55');
@@ -12,8 +12,22 @@ const log = (...messages: string[]) => {
 export class HomePage implements OnInit, OnChanges {
   constructor() {
     console.log('Constructur llamado');
+
+    setTimeout(() => {
+      this.signalProperty.set("Modo Modo")
+    }, 2000);
   }
 
+  changeTradicional() {
+
+    this.tradicionalProperty ='Sergio Modolell';
+  }
+
+  changeSignal() {
+    this.signalProperty.set("Sergio Modolell");
+  }
+  tradicionalProperty = 'Sergio';
+  signalProperty = signal('Sergio');
 
   basicEffect = effect((onCleanup) => {
     log('effect', 'Disparar efectos secundarios');

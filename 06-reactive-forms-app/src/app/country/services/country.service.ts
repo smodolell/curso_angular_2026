@@ -26,4 +26,17 @@ export class CountryService {
     const url = `${this.baseUrl}/alpha/${alphaCode}?fields=cca3,name,borders`;
     return this.http.get<Country>(url);
   }
+
+  getCountryNamesByCodeArray(countryCodes: string[]): Observable<Country[]> {
+    if (!countryCodes || countryCodes.length === 0) return of([]);
+
+    const countriesRequests: Observable<Country>[] = [];
+
+    countryCodes.forEach((code) => {
+      const request = this.getCountryByAlphaCode(code);
+      countriesRequests.push(request);
+    });
+
+    return combineLatest(countriesRequests);
+  }
 }

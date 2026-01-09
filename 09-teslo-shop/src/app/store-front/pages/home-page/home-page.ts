@@ -15,7 +15,7 @@ export class HomePage {
   productsResource = rxResource<ProductsResponce, {}>({
     params: () => ({}),
     stream: ({ params }) => {
-      return this.productsService.getProducts();
+      return this.productsService.getProducts({});
     },
   });
 }

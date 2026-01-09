@@ -3,12 +3,13 @@ import { RouterLink } from '@angular/router';
 import { Product } from '../../interfaces/product-response.interface';
 import { environment } from 'src/environments/environment.development';
 import { SlicePipe } from '@angular/common';
+import { ProductImagePipe } from '@productos/pipes/product-image.pipe';
 
 const baseUrl = environment.baseUrl;
 
 @Component({
   selector: 'product-card',
-  imports: [RouterLink,SlicePipe],
+  imports: [ProductImagePipe,RouterLink,SlicePipe],
   templateUrl: './product-card.html',
 })
 export class ProductCard {

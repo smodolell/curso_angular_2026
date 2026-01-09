@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Product } from '../../interfaces/product-response.interface';
+import { environment } from 'src/environments/environment.development';
+import { SlicePipe } from '@angular/common';
+
+const baseUrl = environment.baseUrl;
 
 @Component({
   selector: 'product-card',
-  imports: [RouterLink],
+  imports: [RouterLink,SlicePipe],
   templateUrl: './product-card.html',
 })
-export class ProductCard { }
+export class ProductCard {
+  product = input.required<Product>({});
+
+  imageUrl = computed(() => {
+    return `${baseUrl}/files/product/${this.product().images[0]}`;
+  });
+}

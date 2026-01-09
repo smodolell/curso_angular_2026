@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { ProductCard } from '@productos/components/product-card/product-card';
-import { ProductsResponce } from '@productos/interfaces/product-response.interface';
-import { ProductsService } from '@productos/services/products.service';
+import { ProductCard } from '@products/components/product-card/product-card';
+import { ProductsResponce } from '@products/interfaces/product-response.interface';
+import { ProductsService } from '@products/services/products.service';
 
 @Component({
   selector: 'app-home-page',

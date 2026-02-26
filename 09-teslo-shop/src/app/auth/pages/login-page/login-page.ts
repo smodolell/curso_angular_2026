@@ -2,6 +2,7 @@ import { Component, Inject, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -31,7 +32,7 @@ export class LoginPage {
     const { email = '', password = '' } = this.loginForm.value;
 
     console.log({ email, password });
-    //User:test1@gmail.com
+    //User:test1@google.com
     //Pass:Abc123
     this.authService.login(email!, password!).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
@@ -43,5 +44,9 @@ export class LoginPage {
         this.hasError.set(false);
       }, 2000);
     });
+
   }
+
+
+
 }

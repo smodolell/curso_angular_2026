@@ -18,6 +18,7 @@ export class AuthService {
   private http = inject(HttpClient);
 
   authStatus = computed<AuthStatus>(() => {
+    if (this.checkStatusResource.isLoading()) return 'checking';
     if (this._authStatus() === 'checking') return 'checking';
     if (this._user()) {
       return 'autenticated';
@@ -28,6 +29,8 @@ export class AuthService {
   checkStatusResource = rxResource({
     stream: () => this.checkStatus(),
   });
+
+
 
   user = computed<User | null>(() => this._user());
   token = computed<string | null>(() => this._token());
@@ -51,7 +54,7 @@ export class AuthService {
     }
 
     return this.http
-      .get<AuthResponse>('${baseUrl}/auth/check-status', {
+      .get<AuthResponse>(`${baseUrl}/auth/check-status`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -74,6 +77,7 @@ export class AuthService {
     this._authStatus.set('autenticated');
     this._token.set(token);
     localStorage.setItem('token', token);
+
     return true;
   }
 
